@@ -1,0 +1,291 @@
+class NEB_weaponData
+{
+	
+		//weapons			//primary	//secondary		//handgun
+		//muzzles		  //pri  //sec	//pri  //sec  //pri  //sec
+						  //v   - 1st is number of mags
+						  //  v - 2nd is index of magazine in the weapons config property 'magazines'
+	NEB_defaultAmmo[] = { {{5,0},{2,0}},{{1,0},{0,0}},{{3,0},{0,0}} };
+	
+	//class arifle_MX_GL_F
+	//{
+	//	level = 1;
+	//	cost = 150;
+	//	
+	//muzzles		  pri		sec
+	//				 v   - 1st is number of primary muzzle mags the weapon is supplied with when bought
+	//				 v  v - 2nd is index of magazine in the weapons config property 'magazines'
+	//				 v  v
+	//				 v  v      v   - 1st is number of secondary muzzle mags the weapon is supplied with when bought
+	//				 v  v	   v   v - 2nd is index of magazine in the weapons secondary muzzle config property 'magazines'
+	//				 v  v	   v   v		here i have used mag number 13, the GL on the MX is a 3GL as it can except 3rnd GL magazines
+	//				 v  v	   v   v		but index 0 of the secondary muzzle is a 1rnd,  if you look at
+	//				 v  v	   v   v		( configfile >> "CfgWeapons" >> "arifle_MX_GL_F" >> "GL_3GL_F" >> "magazines" )
+	//				 v  v	   v   v		and count to index 13 you will see it is a 3rnd
+	//	ammo[] = { { 4, 0 }, { 4, 13 } };
+	//};
+	
+	
+//*****
+//LVL 1
+//*****
+	
+	class hgun_PDW2000_F
+	{
+		level = 1;
+		cost = 100;
+	};
+	class SMG_05_F : hgun_PDW2000_F {};
+	class SMG_02_F : hgun_PDW2000_F {};
+	class SMG_01_F : hgun_PDW2000_F {};
+	class arifle_AKS_F :hgun_PDW2000_F {};
+	class arifle_SPAR_01_blk_F
+	{
+		level = 1;
+		cost = 200;
+	};
+	class arifle_SPAR_01_khk_F : arifle_SPAR_01_blk_F {};
+	class arifle_SPAR_01_snd_F : arifle_SPAR_01_blk_F {};
+	class arifle_SPAR_02_blk_F
+	{
+		level = 5;
+		cost = 400;
+	};
+	class arifle_SPAR_02_khk_F : arifle_SPAR_02_blk_F {};
+	class arifle_SPAR_02_snd_F : arifle_SPAR_02_blk_F {};
+	class arifle_CTAR_blk_F : arifle_SPAR_02_blk_F {};
+	class arifle_CTAR_ghex_F : arifle_SPAR_02_blk_F {};
+	class arifle_CTAR_hex_F : arifle_SPAR_02_blk_F {};
+	class arifle_CTARS_blk_F : arifle_SPAR_02_blk_F {};
+	class arifle_CTARS_ghex_F : arifle_SPAR_02_blk_F {};
+	class arifle_CTARS_hex_F : arifle_SPAR_02_blk_F {};
+	class arifle_AKM_F
+	{
+		level = 10;
+		cost = 100;
+	};
+	class LMG_03_F
+	{
+		level = 10;
+		cost = 600;
+	};
+	class arifle_SPAR_01_GL_blk_F
+	{
+		level = 12;
+		cost = 300;
+	};
+	class arifle_SPAR_01_GL_khk_F : arifle_SPAR_01_GL_blk_F {};
+	class arifle_SPAR_01_GL_snd_F : arifle_SPAR_01_GL_blk_F {};
+	class arifle_CTAR_GL_blk_F : arifle_SPAR_01_GL_blk_F 
+	{
+		level = 13;
+	};
+	class arifle_CTAR_GL_ghex_F : arifle_CTAR_GL_blk_F {};
+	class arifle_CTAR_GL_hex_F : arifle_CTAR_GL_blk_F {};
+	
+	class arifle_MXC_khk_F
+	{
+		level = 15;
+		cost = 400;
+	};
+	class arifle_MXC_F : arifle_MXC_khk_F {};
+	class arifle_MXC_Black_F  : arifle_MXC_khk_F {};
+	class srifle_DMR_07_blk_F
+	{
+		level = 16;
+		cost = 500;
+	};
+	class srifle_DMR_07_ghex_F : srifle_DMR_07_blk_F {};
+	class srifle_DMR_07_hex_F : srifle_DMR_07_blk_F {};
+	class arifle_MX_khk_F
+	{
+		level = 16;
+		cost = 500;
+	};
+	class arifle_MX_F : arifle_MX_khk_F {};
+	class arifle_MX_Black_F : arifle_MX_khk_F {};
+	class arifle_MXM_F
+	{
+		level = 17;
+		cost = 600;
+	};
+	class arifle_MXM_khk_F : arifle_MXM_F {};
+	class arifle_MXM_Black_F : arifle_MXM_F {};
+	class arifle_MX_SW_F
+	{
+		level = 18;
+		cost = 750;
+	};
+	class arifle_MX_SW_Black_F : arifle_MX_SW_F {};
+	class arifle_MX_SW_khk_F : arifle_MX_SW_F {};
+	
+	
+	class srifle_DMR_01_F
+	{
+		level = 20;
+		cost = 1500;
+	};
+	class arifle_MX_GL_F
+	{
+		level = 23;
+		cost = 700;
+		//Ammo is [ primary muzzle, secondary muzzle ] Where each is..
+		//[ [ count, index ], [ count, index ] ]
+		//Count - number of mags to supply
+		//Index - index in weapons config magazine array
+		ammo[] = { { 4, 0 }, { 4, 13 } };
+	};
+	class arifle_MX_GL_khk_F : arifle_MX_GL_F {}; 
+	class arifle_MX_GL_Black_F : arifle_MX_GL_F {}; 
+	class arifle_AK12_F
+	{
+		level = 25;
+		cost = 300;
+	};
+	class LMG_Mk200_F
+	{
+		level = 25;
+		cost = 1100;
+	};
+	class arifle_ARX_blk_F
+	{
+		level = 30;
+		cost = 1000;
+	};
+	class arifle_ARX_ghex_F : arifle_ARX_blk_F {};
+	class arifle_ARX_hex_F : arifle_ARX_blk_F {};
+	class srifle_DMR_06_olive_F
+	{
+		level = 30;
+		cost = 1550;
+	};
+	class srifle_DMR_06_camo_F : srifle_DMR_06_olive_F {};
+	class srifle_EBR_F
+	{
+		level = 30;
+		cost = 1600;
+	};
+	class srifle_DMR_03_F
+	{
+		level = 30;
+		cost = 1700;
+	};
+	class srifle_DMR_03_multicam_F : srifle_DMR_03_F {};
+	class srifle_DMR_03_khaki_F : srifle_DMR_03_F {};
+	class srifle_DMR_03_tan_F : srifle_DMR_03_F {};
+	class srifle_DMR_03_woodland_F : srifle_DMR_03_F {};
+	class LMG_Zafir_F
+	{
+		level = 30;
+		cost = 1200;
+	};
+	class arifle_AK12_GL_F
+	{
+		level = 30;
+		cost = 400;
+		ammo[] = { { 4, 0 }, { 4, 0 } };
+	};
+	class srifle_DMR_02_F
+	{
+		level = 35;
+		cost = 2000;
+	};
+	class srifle_DMR_02_sniper_F : srifle_DMR_02_F {};
+	class srifle_DMR_02_camo_F : srifle_DMR_02_F {};
+	class MMG_02_black_F : srifle_DMR_02_F {};
+	class MMG_02_camo_F : srifle_DMR_02_F {};
+	class MMG_02_sand_F : srifle_DMR_02_F {};
+	class MMG_01_hex_F
+	{
+		level = 40;
+		cost = 3000;
+	};
+	class MMG_01_tan_F : MMG_01_hex_F {};
+	class srifle_LRR_F : MMG_01_hex_F {};
+	class srifle_LRR_camo_F : MMG_01_hex_F {};
+	class srifle_LRR_tna_F : MMG_01_hex_F {};
+	class srifle_DMR_04_F : MMG_01_hex_F {};
+	class srifle_DMR_04_Tan_F : MMG_01_hex_F {};
+	class srifle_GM6_F
+	{
+		level = 45;
+		cost = 4000;
+	};
+	class srifle_GM6_camo_F : srifle_GM6_F {};
+	class srifle_GM6_ghex_F : srifle_GM6_F {};
+	class launch_RPG7_F
+	{
+		level = 1;
+		cost = 500;
+	};
+	class launch_RPG32_F
+	{
+		level = 1;
+		cost = 600;
+	};
+	class launch_RPG32_ghex_F
+	{
+		level = 1;
+		cost = 600;
+	};
+	class launch_NLAW_F
+	{
+		level = 5;
+		cost = 4000;
+	};
+	class launch_B_Titan_F
+	{
+		level = 10;
+		cost = 5000;
+	};
+	class launch_O_Titan_ghex_F : launch_B_Titan_F {};
+	class launch_B_Titan_tna_F : launch_B_Titan_F {};
+	class launch_I_Titan_F : launch_B_Titan_F {};
+	class launch_O_Titan_F : launch_B_Titan_F {};
+	class launch_O_Titan_short_ghex_F : launch_B_Titan_F {};
+	class launch_I_Titan_short_F : launch_B_Titan_F {};
+	class launch_O_Titan_short_F : launch_B_Titan_F {};
+	class launch_launch_B_Titan_short_F : launch_B_Titan_F {};
+	class launch_B_Titan_short_tna_F : launch_B_Titan_F {};
+	class hgun_Pistol_01_F
+	{
+		level = 1;
+		cost = 50;
+	};
+	class hgun_Rook40_F
+	{
+		level = 1;
+		cost = 50;
+	};
+	class hgun_P07_F
+	{
+		level = 1;
+		cost = 50;
+	};
+	class hgun_P07_khk_F
+	{
+		level = 1;
+		cost = 50;
+	};
+	class hgun_ACPC2_F
+	{
+		level = 5;
+		cost = 60;
+	};
+	class hgun_Pistol_heavy_01_F
+	{
+		level = 10;
+		cost = 300;
+	};
+	class hgun_Pistol_heavy_02_F
+	{
+		level = 10;
+		cost = 300;
+	};
+	class hgun_Pistol_Signal_F
+	{
+		level = 1;
+		cost = 20;
+	};
+
+};

@@ -1,0 +1,217 @@
+class NEB_attachData
+{
+		
+	NEB_shopButtons = 4;
+//*****
+//LVL 1
+//*****
+	class optic_Aco 
+	{ 
+		cost = 50; 
+		level = 1; 
+	};
+	class muzzle_snds_acp : optic_Aco {};
+	class optic_ACO_grn : optic_Aco {};
+	
+	class optic_Aco_smg : optic_Aco {};
+	class optic_ACO_grn_smg : optic_Aco {};
+	class optic_Holosight 
+	{ 
+		cost = 60; 
+		level = 1; 
+	};
+	class optic_Holosight_smg : optic_Holosight {};
+	class optic_Holosight_blk_F : optic_Holosight {};
+	class optic_Holosight_khk_F : optic_Holosight {};
+	class optic_Holosight_smg_blk_F : optic_Holosight {};
+	
+	class muzzle_snds_L : optic_Aco {};
+
+	class acc_flashlight 
+	{ 
+		cost = 20; 
+		level = 1; 
+	};
+	class optic_Yorris : acc_flashlight {};
+	class optic_MRD : acc_flashlight {};
+	
+//*****
+//LVL 5
+//*****
+	
+	class muzzle_snds_M 
+	{
+		cost = 100;
+		level = 5;	
+	};
+	class muzzle_snds_58_blk_F : muzzle_snds_M {};
+	class muzzle_snds_m_khk_F : muzzle_snds_M {};
+	class muzzle_snds_m_snd_F : muzzle_snds_M {};
+	class muzzle_snds_58_wdm_F : muzzle_snds_M {};
+	class acc_pointer_IR : muzzle_snds_M 
+	{
+		cost = 60;
+	};
+	class optic_MRCO : muzzle_snds_M
+	{ 
+		cost = 80;  
+	};
+	class optic_Hamr 
+	{ 
+		cost = 150; 
+		level = 5; 
+	};
+	class optic_Hamr_khk_F : optic_Hamr {};
+	
+//******
+//LVL 10
+//******
+	
+	class optic_Arco
+	{
+		cost = 170;
+		level = 10;
+	};
+	class optic_Arco_blk_F : optic_Arco {};
+	class optic_Arco_ghex_F : optic_Arco {};
+	
+	class muzzle_snds_H : muzzle_snds_M 
+	{
+		level = 10;
+	};
+	class muzzle_snds_H_khk_F : muzzle_snds_H {};
+	class muzzle_snds_H_snd_F : muzzle_snds_H {};
+	class optic_ERCO_blk_F : optic_Arco
+	{ 
+		cost = 180;  
+	};
+	class optic_ERCO_khk_F : optic_ERCO_blk_F {};
+	class optic_ERCO_snd_F : optic_ERCO_blk_F {};
+	class optic_SOS_khk_F : optic_ERCO_blk_F {};
+	class optic_SOS : optic_SOS_khk_F {};
+//******
+//LVL 15
+//******
+	
+	class muzzle_snds_H_MG 
+	{ 
+		cost = 200; 
+		level = 15; 
+	};
+	class muzzle_snds_H_MG_blk_F : muzzle_snds_H_MG {};
+	class muzzle_snds_H_MG_khk_F : muzzle_snds_H_MG {};
+	
+	
+	
+	
+	class optic_NVS : muzzle_snds_H_MG {};
+	
+	
+	
+	class optic_DMS : muzzle_snds_H_MG
+	{ 
+		cost = 300; 
+		 
+	};
+	class optic_DMS_ghex_F : optic_DMS {};
+	class bipod_01_F_snd 
+	{ 
+		cost = 200; 
+		level = 15; 
+	};
+	class bipod_01_F_blk : bipod_01_F_snd {};
+	class bipod_01_F_mtp : bipod_01_F_snd {};
+	class bipod_02_F_blk : bipod_01_F_snd {};
+	class bipod_02_F_tan : bipod_01_F_snd {};
+	class bipod_02_F_hex : bipod_01_F_snd {};
+	class bipod_03_F_blk : bipod_01_F_snd {};
+	class bipod_03_F_oli : bipod_01_F_snd {};
+	class bipod_01_F_khk : bipod_01_F_snd {};
+	
+	
+	
+//******
+//LVL 20
+//******
+	class muzzle_snds_65_TI_blk_F
+	{ 
+		cost = 150;
+		level = 20;	
+	};
+	class muzzle_snds_65_TI_hex_F : muzzle_snds_65_TI_blk_F {};
+	class muzzle_snds_65_TI_ghex_F : muzzle_snds_65_TI_blk_F {};
+	class muzzle_snds_B 
+	{ 
+		cost = 100; 
+		level = 20; 
+	};
+	class muzzle_snds_B_khk_F : muzzle_snds_B {};
+	class muzzle_snds_B_snd_F : muzzle_snds_B {};
+	
+	
+	class optic_AMS : muzzle_snds_B {};
+	class optic_AMS_khk : optic_AMS {};
+	class optic_AMS_snd : optic_AMS {};
+	class optic_KHS_blk 
+	{ 
+		cost = 300; 
+		level = 20; 
+	};
+	class optic_KHS_hex : optic_KHS_blk {};
+	
+	class optic_KHS_old : optic_KHS_blk {};
+	class optic_KHS_tan : optic_KHS_blk {};
+//******
+//LVL 25
+//******	
+	class optic_LRPS 
+	{ 
+		cost = 400; 
+		level = 25; 
+	};
+	class optic_LRPS_tna_F : optic_LRPS {};
+	class optic_LRPS_ghex_F : optic_LRPS {};
+	
+//******
+//LVL 30
+//******	
+		class muzzle_snds_338_black 
+	{ 
+		cost = 300; 
+		level = 30; 
+	};
+	class muzzle_snds_338_green : muzzle_snds_338_black {};
+	class muzzle_snds_338_sand : muzzle_snds_338_black {};
+//******
+//LVL 35
+//******
+	
+class muzzle_snds_93mmg  
+	{
+		cost = 350;
+		level = 35;
+	};
+class muzzle_snds_93mmg_tan : muzzle_snds_93mmg {};	
+	
+	
+//*******
+//LVL 40
+//*******
+	class optic_tws 
+	{ 
+		cost = 900; 
+		level = 40; 
+	};
+	class optic_tws_mg : optic_tws {};
+	
+
+//******
+//LVL 45
+//******
+	class optic_Nightstalker 
+	{ 
+		cost = 1000; 
+		level = 45; 
+	};
+
+};

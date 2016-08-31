@@ -1,0 +1,66 @@
+author = "Nebulazer";
+onLoadName = "Base Wars";
+onloadmission="Level Up And Get Better Gear, Take Control Of Their Coms Tower To Get Big Points. Get Kills And Take Sectors On The Map To Earn Money And XP.";
+onLoadIntro = "Level Up And Get Better Gear, Take Control Of Their Coms Tower To Get Big Points. Get Kills And Take Sectors On The Map To Earn Money And XP.";
+onLoadMissionTime = 1;
+onLoadIntroTime = 1;
+loadScreen ="images\loadscreen.jpg";
+enableDebugConsole = 2;
+disabledAI = 1;
+respawn = 3;
+respawnOnStart = -1;
+corpseManagerMode = 0;
+wreckManagerMode = 0;
+
+
+class Header
+{
+	gameType = SC;
+	minPlayers = 1;
+	maxPlayers = 80;
+};
+#include "NEB\Shop\UI\Shop.hpp"
+#include "basedefines.hpp"
+
+
+class RscTitles
+{
+#include "playerInfo.hpp"
+};  
+
+
+
+
+
+
+class CfgFunctions
+{
+	#include "functions\cfgFunctions.hpp"
+	#include "NEB\Shop\UI\Shop_funcs.hpp"
+};
+
+class CfgSounds
+{
+	
+	// List of sounds (.ogg files without the .ogg extension)
+	sounds[] = {airplanes,electricshock};
+
+	// Definition for each sound
+	class airplanes
+	{
+		name = "airplanes"; // Name for mission editor
+		sound[] = {\sound\airplanes.ogg,  db-20, 1};
+		titles[] = {0, ""};
+	};
+	class electricshock
+	{
+		name = "electricshock"; // Name for mission editor
+		sound[] = {\sound\electricshock.ogg, db-25, 1};
+		titles[] = {0, ""};
+	};
+	
+};
+
+
+
+
