@@ -25,19 +25,19 @@ sleep 1;
  
 						case west: {
 						
-						_position = [2938.69,13107.5,400];
+						_position = [2938.69,13107.5,0];
 						[_position] call neb_fnc_core_setStartingPos;
 						
-						playSound "airplanes";
+						//playSound "airplanes";
 						
 						
 						};
  
 						case east: {
 						
-						_position = [2695.89,12334.4,400];
+						_position = [2695.89,12334.4,0];
 						[_position] call neb_fnc_core_setStartingPos;
-						playSound "airplanes";
+						//playSound "airplanes";
 						
 						
 						};
@@ -305,15 +305,9 @@ fnc_updateStats = {
     (uiNamespace getVariable "UIplayerInfo" displayCtrl UIcash ) ctrlSetText ( format [ "$%1", _cash ] );
     (uiNamespace getVariable "UIplayerInfo" displayCtrl UIkills ) ctrlSetText ( format [ "Kills : %1", _kills ] );
 	
-	/*
-	(uiNamespace getVariable "UIplayerInfo" displayCtrl UIhealthIcon ) ctrlSetStructuredText parseText ( format [
-	"<t align='center' size='2' ><img image=%1 /></t>", 
-	_healthIcon 
-	]);
-	*/
 	
 	[] call fnc_showCashGain;
-	[] call neb_fnc_core_ticketCounter;
+	
 		//flag updatestats as finished
 	statsUpdating = nil;
 };
@@ -324,6 +318,7 @@ _bluProgress = linearConversion [ 0, endScore, bluScore, 0, 1 ];
 _redProgress = linearConversion [ 0, endScore, redScore, 0, 1 ];
 _displayFPS = round diag_fps;
 _playerDamage = (1 - (damage player));
+[] call neb_fnc_core_ticketCounter;
 	(uiNamespace getVariable "UIplayerInfo" displayCtrl UIhealthBar ) progressSetPosition _playerDamage;
 	(uiNamespace getVariable "UIplayerInfo" displayCtrl UIdisplayFPS ) ctrlSetText ( format [ "FPS : %1", _displayFPS ] );
 	(uiNamespace getVariable "UIplayerInfo" displayCtrl UIredScore ) ctrlSetText ( format [ "%1", redScore ] );
