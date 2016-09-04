@@ -19,7 +19,7 @@
 
 redScore = 0;
 bluScore = 0;
-endScore = 100;
+endScore = 1000;
 
 publicVariable "redScore";
 publicVariable "bluScore";
