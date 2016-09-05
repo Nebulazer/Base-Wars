@@ -726,7 +726,17 @@ NEB_fnc_suitChanged = {
 	}forEach _allAbilities;	
 };
 enableSentences false;
+
+_myLoadout = profileNamespace getVariable ["NEB_PRO_39573_LOADOUT",[]];
+
+if (_myLoadout isEqualto []) then {
 [] call neb_fnc_core_levelRewards;
+}else{
+player setUnitLoadout _myLoadout;
+};
+
+
+
 (_this select 0) enableStamina false;
 [] spawn neb_fnc_core_openChute;
 //Starting UI stats and groups
@@ -763,6 +773,8 @@ onPlayerDisconnected {
 			]
 		];
 	};
+	_loadout = getUnitLoadout player;
+	profileNamespace setVariable ["NEB_PRO_39573_LOADOUT",_loadout];
     saveProfileNamespace;
 };
 
