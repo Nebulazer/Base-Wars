@@ -53,29 +53,6 @@ player setVariable [ "experience",    profileNamespace getVariable [ "NEB_PRO_39
 player setVariable [ "kills",        profileNamespace getVariable [ "NEB_PRO_39573_KILLS",    0 ] ];
 player setVariable [ "level",        profileNamespace getVariable [ "NEB_PRO_39573_LEVEL",    1 ] ];
 
-
-//Crate Loading
-_contents = profileNamespace getVariable [ "NEB_telecache", [] ];
-_crate = [ "CRATE", "GET" ] call NEB_fnc_shop;
-{
-    switch ( _forEachIndex ) do {
-        case ( 0 ) : {
-            {
-                _crate addMagazineCargo _x;
-            }forEach _x;
-        };
-        case ( 1 ) : {
-            {
-                _crate addItemCargo _x;
-            }forEach _x;
-        };
-        case ( 2 ) : {
-            {
-                _crate addWeaponCargo _x;
-            }forEach _x;
-        };
-    };
-}forEach _contents;
                 
     
 //Add event to player
@@ -749,22 +726,6 @@ NEB_fnc_getPlayerCash = {
 0 = ["players","ai"] call neb_fnc_core_playerMarkers;
 
 
-
-
-onPlayerDisconnected {
-	//Crate Saving
-	_crate = player getVariable [ "NEB_shopCrate", objNull ];
-	if !( isNull _crate ) then {
-		profileNamespace setVariable[ "NEB_telecache",
-			[
-				magazineCargo _crate call BIS_fnc_consolidateArray,
-				itemCargo _crate call BIS_fnc_consolidateArray,
-				weaponCargo _crate call BIS_fnc_consolidateArray
-			]
-		];
-	};
-    saveProfileNamespace;
-};
 
 
 				

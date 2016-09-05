@@ -1143,7 +1143,8 @@ neb_fnc_core_bluSpawnTruck = {
 					_trigger attachTo [ BluSpawnTruck, [0,0,0] ];
 
 					//Call shopInit on server and all clients and JIP
-					_JIP = [ _trigger, "Blu Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", [ 0, 2 ], true ];
+					_JIP = [ _trigger, "Blu Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", 0, true ];
+					_JIP = [ _trigger, "Blu Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", 2 ];
 					
 					
 					waitUntil {!alive BluSpawnTruck};
@@ -1281,7 +1282,8 @@ neb_fnc_core_redSpawnTruck = {
 					_trigger attachTo [ RedSpawnTruck, [0,0,0] ];
 
 					//Call shopInit on server and all clients and JIP
-					_JIP = [ _trigger, "Red Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", [ 0, 2 ], true ];
+					[ _trigger, "Red Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", 0, true ];
+					[ _trigger, "Red Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", 2 ];
 					waitUntil {!alive RedSpawnTruck};
 					sleep .5;
 					RedSpawnTruck = nil;
