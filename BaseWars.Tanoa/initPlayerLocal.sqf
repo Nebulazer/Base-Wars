@@ -703,7 +703,17 @@ NEB_fnc_suitChanged = {
 	}forEach _allAbilities;	
 };
 enableSentences false;
+
+_myLoadout = profileNamespace getVariable ["NEB_PRO_39573_LOADOUT",[]];
+
+if (_myLoadout isEqualto []) then {
 [] call neb_fnc_core_levelRewards;
+}else{
+player setUnitLoadout _myLoadout;
+};
+
+
+
 (_this select 0) enableStamina false;
 [] spawn neb_fnc_core_openChute;
 //Starting UI stats and groups
@@ -728,4 +738,25 @@ NEB_fnc_getPlayerCash = {
 
 
 
+<<<<<<< HEAD
+=======
+onPlayerDisconnected {
+	//Crate Saving
+	_crate = player getVariable [ "NEB_shopCrate", objNull ];
+	if !( isNull _crate ) then {
+		profileNamespace setVariable[ "NEB_telecache",
+			[
+				magazineCargo _crate call BIS_fnc_consolidateArray,
+				itemCargo _crate call BIS_fnc_consolidateArray,
+				weaponCargo _crate call BIS_fnc_consolidateArray
+			]
+		];
+	};
+	_loadout = getUnitLoadout player;
+	profileNamespace setVariable ["NEB_PRO_39573_LOADOUT",_loadout];
+    saveProfileNamespace;
+};
+
+
+>>>>>>> refs/remotes/origin/master
 				
