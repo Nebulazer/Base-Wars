@@ -6,7 +6,9 @@ class NEB_Shop
 		file = "NEB\Shop\UI\functions";
 		class shop {};
 		class shopInit {};
+		class shopCrate {};
 	};
+	
 	class ShopTypes
 	{
 		file = "NEB\Shop\UI\functions\shops";

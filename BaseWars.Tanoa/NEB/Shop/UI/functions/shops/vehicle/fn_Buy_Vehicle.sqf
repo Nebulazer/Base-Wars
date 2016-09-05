@@ -19,5 +19,4 @@ if ( _emptyPos isEqualTo [] ) then {
 	
 	player setDir (getDir _veh);
 	
-	closeDialog 1;
 };
