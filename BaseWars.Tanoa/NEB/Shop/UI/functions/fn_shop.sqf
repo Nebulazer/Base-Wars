@@ -68,7 +68,7 @@ switch ( toUpper _fnc ) do {
 		{
 			UICTRL( _x ) ctrlShow false;
 		}forEach ( SHOPLAYOUTS - [ _currentLayout ] );
-		
+			
 		//Make sure new layout is visible
 		UICTRL( _currentLayout ) ctrlShow true;
 
@@ -205,78 +205,4 @@ switch ( toUpper _fnc ) do {
 
 	};
 
-	//******
-	//Create crate/teleport/open/icon
-	//******
-	case ( "CRATE" ) : {
-		params[ "_do", "_this" ];
-
-		switch ( _do ) do {
-
-			case "GET" : {
-				private[ "_crate" ];
-
-				if ( isNull ( player getVariable [ "NEB_shopCrate", objNull ] ) ) then {
-					//Create crate
-					_crate = createVehicle [ "Box_NATO_Ammo_F", player getPos [ 2, getDir player ], [], 0, "CAN_COLLIDE" ];
-					clearItemCargoGlobal _crate;
-					clearMagazineCargoGlobal _crate;
-					clearWeaponCargoGlobal _crate;
-					_crate allowDamage false;
-
-					_crate setObjectTextureGlobal [0,"NEB\Shop\textures\shopCrate_signs_ca.paa"];
-
-					player setVariable [ "NEB_shopCrate", _crate ];
-
-					addMissionEventHandler [ "Draw3D", {
-						_crate = player getVariable "NEB_shopCrate";
-						if !( isObjectHidden _crate ) then {
-							drawIcon3D [
-								"\a3\weapons_f\Ammoboxes\data\ui\map_wpnsbox_f_ca.paa",
-								[1,1,1,1],
-								getPosATLVisual _crate vectorAdd [0,0,1],
-								1,
-								1,
-								0
-							];
-						};
-					}];
-
-				}else{
-					_crate = player getVariable "NEB_shopCrate";
-					if ( _crate distance player > 4 ) then {
-						 _crate setVehiclePosition [ player getPos [ 2, getDir player ], [], 0, "CAN_COLLIDE" ];
-					};
-					if ( isObjectHidden _crate ) then {
-						[ _crate, false ] remoteExec [ "hideObjectGlobal", 2 ];
-					};
-
-				};
-
-				_crate setDir ( getDir player + 90 );
-
-				_crate
-			};
-
-			case "OPEN" : {
-				_crate = player getVariable [ "NEB_shopCrate", objNull ];
-				
-				_crate = [ "CRATE", "GET" ] call NEB_fnc_shop;
-
-				closeDialog 1;
-
-				player action [ "OpenBag", _crate ];
-			};
-
-			case "HIDE" : {
-				_crate = player getVariable [ "NEB_shopCrate", objNull ];
-
-				if !( isNull _crate ) then {
-					[ _crate, true ] remoteExec [ "hideObjectGlobal", 2 ];
-				};
-			};
-
-		};
-
-	};
 };
