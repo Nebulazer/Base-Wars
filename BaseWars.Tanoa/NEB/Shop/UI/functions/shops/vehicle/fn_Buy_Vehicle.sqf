@@ -17,5 +17,7 @@ if ( _emptyPos isEqualTo [] ) then {
 	clearMagazineCargoGlobal _veh;
 	clearItemCargoGlobal _veh;
 	
+	player setDir (getDir _veh);
+	
 	closeDialog 1;
 };
