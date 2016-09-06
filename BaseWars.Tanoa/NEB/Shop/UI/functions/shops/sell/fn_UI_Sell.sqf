@@ -3,7 +3,7 @@
 //Shop Title
 UICTRL( STXT_TITLE_IDC ) ctrlSetStructuredText parseText "<t align='center'>Telecache</t>";
 //Shop Icon
-UICTRL( PIC_SHOP_IDC ) ctrlSetText "$";
+UICTRL( PIC_SHOP_IDC ) ctrlSetText "";
 //Shop Buttons
 UICTRL( BTN_ZERO_IDC ) ctrlSetText "Weapons";
 UICTRL( BTN_ONE_IDC ) ctrlSetText "Attachments";

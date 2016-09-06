@@ -12,9 +12,10 @@ switch ( _do ) do {
 
 		//Create crate
 		_crate = createVehicle [ "Box_NATO_Ammo_F", [0,0,0], [], 0, "CAN_COLLIDE" ];
-		clearItemCargoGlobal _crate;
 		clearMagazineCargoGlobal _crate;
+		clearItemCargoGlobal _crate;		
 		clearWeaponCargoGlobal _crate;
+		clearBackpackCargoGlobal _crate;
 		_crate allowDamage false;
 		
 		//Set telecache texture
@@ -93,7 +94,7 @@ switch ( _do ) do {
 		
 		_crate = [ "GET" ] call NEB_fnc_shopCrate;
 		
-		if ( _crate distanceSqr player > 2^2 ) then {
+		if ( _crate distanceSqr player > 2^2 || { [ getPos player, getDir player, 30, getPos _crate ] call BIS_fnc_inAngleSector } ) then {
 			_crate setVehiclePosition [ player getPos [ 2, getDir player ], [], 0, "CAN_COLLIDE" ];
 			_crate setDir ( getDir player + 90 );
 		};
@@ -165,7 +166,6 @@ switch ( _do ) do {
 					{
 						if ( !isNil "_x" && { count _x > 0 } ) then {
 							_x params [ "_mag", "_ammo" ];
-							systemChat format[ "adding mag - %1", [ _mag, 1, _ammo ] ];
 							_crate addMagazineAmmoCargo [ _mag, 1, _ammo ];
 						};
 					}forEach [ _priMuzzleMag, _secMuzzleMag ];
@@ -234,6 +234,11 @@ switch ( _do ) do {
 		
 		_crate = [ "GET" ] call NEB_fnc_shopCrate;
 		
+		clearMagazineCargo _crate;
+		clearItemCargo _crate;		
+		clearWeaponCargo _crate;
+		clearBackpackCargo _crate;
+		
 		{
 		    switch ( _forEachIndex ) do {
 		        case ( 0 ) : {
@@ -262,9 +267,9 @@ switch ( _do ) do {
 	};
 	
 	//********
-	//Handles saving of player crate inventory
+	//Handles updating of player crate inventory
 	//********
-	case "SAVE" : {
+	case "UPDATE" : {
 		_crate = player getVariable [ "NEB_shopCrate", objNull ];
 		
 		if !( isNull _crate ) then {
@@ -282,6 +287,14 @@ switch ( _do ) do {
 	
 	//********
 	//Handles saving of player crate inventory
+	//********
+	case "SAVE" : {
+		[ "UPDATE" ] call NEB_fnc_shopCrate;
+		saveProfileNamespace;
+	};
+	
+	//********
+	//Returns crate inventory
 	//********
 	case "CARGO" : {
 		params[ [ "_type", "ALL" ] ];

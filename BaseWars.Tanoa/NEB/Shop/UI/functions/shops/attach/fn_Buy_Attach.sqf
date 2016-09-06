@@ -27,7 +27,7 @@ if ( toLower _classname in ( _compatibleAttachments apply{ toLower _x } ) ) then
 	[ "SHOW" ] call NEB_fnc_shopCrate;
 };
 
-
+[ "UPDATE" ] call NEB_fnc_shopCrate;
 
 
 

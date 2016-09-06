@@ -95,3 +95,5 @@ switch( NEB_currentButton ) do {
 		player linkItem _className;
 	};
 };
+
+[ "UPDATE" ] call NEB_fnc_shopCrate;

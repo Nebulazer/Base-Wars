@@ -1,7 +1,5 @@
 params[ "_shopName" ];
 
-//Weapons, Attchments, Gear
-
 _crateContents = [ "CARGO", "ALL" ] call NEB_fnc_shopCrate;
 _crateContents params[ "_magazines", "_items", "_weapons", "_backpacks" ];
 
@@ -14,12 +12,24 @@ _crateContents params[ "_magazines", "_items", "_weapons", "_backpacks" ];
 	{
 		_x params [ "_item", "_count", [ "_ammo", -1 ] ];
 		
+		if ( isClass( configFile >> "CfgMagazines" >> _item ) ) then {
+			_ammo = _count;
+			_count = 1;
+		};
+		
 		for "_i" from 1 to _count do {
-			if ( isClass( _cfg >> _item ) && { _item call _condition } ) then 
-				_nul = _shopData pushBack [ _item, getNumber( _cfg >> _item >> "cost" ) * _sellRatio, _ammo ];
-			}else{
-				//For testing so we know whats missiong a data class
-				_nul = _shopData pushBack [ _item, 0, _ammo ];
+			if ( _item call _condition ) then {
+				if ( isClass( _cfg >> _item ) ) then {
+					if ( _ammo > -1 ) then {
+						_full = getNumber( configFile >> "CfgMagazines" >> _item >> "count" );
+						_ammoPrice = linearConversion[ 0, _full, _ammo, 0, 1 ];
+						_sellRatio = _sellRatio * _ammoPrice;
+					};
+					_nul = _shopData pushBack [ _item, getNumber( _cfg >> _item >> "cost" ) * _sellRatio, _ammo ];
+				}else{
+					//For testing so we know whats missiong in data class
+					_nul = _shopData pushBack [ _item, 0, _ammo ];
+				};
 			};
 		};
 	}forEach _cargo;
@@ -27,11 +37,11 @@ _crateContents params[ "_magazines", "_items", "_weapons", "_backpacks" ];
 }forEach [
 	//[ cargo, data to check, condition to add ]
 	//Weapons
-	[ _weapons, "NED_weaponData", { true }, 0.75 ],
+	[ _weapons, "NEB_weaponData", { true }, 0.75 ],
 	//Attachments
-	[ _items, "NED_attachData", { true }, 0.75 ],
+	[ _items, "NEB_attachData", { getNumber( configFile >> "CfgWeapons" >> _this >> "iteminfo" >> "type" ) in [ 101, 201, 301, 302 ] }, 0.75 ],
 	//Gear
-	[ _items, "NED_gearData", { true }, 0.75 ],
+	[ _items, "NEB_gearData", { !( getNumber( configFile >> "CfgWeapons" >> _this >> "iteminfo" >> "type" ) in [ 101, 201, 301, 302 ] ) }, 0.75 ],
 	//Magazines
-	[ _magazines, "NED_attachData", { true }, 0.75 ] //chnage data structure when ammo is implemented
+	[ _magazines, "NEB_attachData", { true }, 0.75 ] //chnage data structure when ammo is implemented
 ];

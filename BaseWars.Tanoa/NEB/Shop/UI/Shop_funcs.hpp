@@ -37,6 +37,6 @@ class NEB_Shop
 	//Leave at bottom
 	class ShopSell
 	{
-		#include "functions\shops\gear\SellFuncs.hpp"
+		#include "functions\shops\sell\SellFuncs.hpp"
 	};
 };
