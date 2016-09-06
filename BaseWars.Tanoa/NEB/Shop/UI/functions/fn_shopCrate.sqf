@@ -92,14 +92,15 @@ switch ( _do ) do {
 		private[ "_crate" ];
 		
 		_crate = [ "GET" ] call NEB_fnc_shopCrate;
-						
-		_crate setVehiclePosition [ player getPos [ 2, getDir player ], [], 0, "CAN_COLLIDE" ];
+		
+		if ( _crate distanceSqr player > 2^2 ) then {
+			_crate setVehiclePosition [ player getPos [ 2, getDir player ], [], 0, "CAN_COLLIDE" ];
+			_crate setDir ( getDir player + 90 );
+		};
 		
 		if ( isObjectHidden _crate ) then {
 				[ _crate, false ] remoteExec [ "hideObjectGlobal", 2 ];
 		};
-
-		_crate setDir ( getDir player + 90 );
 
 		_crate
 	};
@@ -229,7 +230,7 @@ switch ( _do ) do {
 	// Handles loading of player crate at mission start and loading it with saved inventory
 	//********
 	case "LOAD" : {
-		_contents = profileNamespace getVariable [ "NEB_telecache", [] ];
+		_contents = [ "CARGO", "ALL" ] call NEB_fnc_shopCrate;
 		
 		_crate = [ "GET" ] call NEB_fnc_shopCrate;
 		
@@ -277,6 +278,34 @@ switch ( _do ) do {
 			];
 		
 		};
+	};
+	
+	//********
+	//Handles saving of player crate inventory
+	//********
+	case "CARGO" : {
+		params[ [ "_type", "ALL" ] ];
+		
+		_contents = profileNamespace getVariable [ "NEB_telecache", [] ];
+		
+		switch ( toUpper _type ) do {
+			case "ALL" : {
+				_contents
+			};
+			case "MAGAZINES" : {
+				_contents select 0
+			};
+			case "WEAPONS" : {
+				_contents select 1
+			};
+			case "ITEMS" : {
+				_contents select 2
+			};
+			case "BACKPACKS" : {
+				_contents select 3
+			};
+		};
+		
 	};
 	
 	//Called by server on missionEH HandleDisconnect

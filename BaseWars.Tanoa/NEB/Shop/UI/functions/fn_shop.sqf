@@ -127,35 +127,41 @@ switch ( toUpper _fnc ) do {
 		_data = NEB_shopData select NEB_currentButton;
 
 		//Fill listbox
-		{
-			_x params[ "_className", "_level", "_price" ];
+		if ( !isNil format[ "NEB_fnc_List_%1", NEB_currentShop ] ) then {
+			//If a specialised list fill script is available use that instead.
+			[ _listbox, _buyButton, _data ] call ( missionNamespace getVariable format[ "NEB_fnc_List_%1", NEB_currentShop ] );
+			
+		}else{
+			//Normal list fill for all BUY
+			{
+				_x params[ "_className", "_level", "_price" ];
 
+				_cfg = {
+					if ( isClass ( configFile >> _x >> _className ) ) exitWith {
+						( configFile >> _x >> _className )
+					};
+				}forEach [
+					//This list should be enough to cover most class types
+					"CfgVehicles",
+					"CfgWeapons",
+					"CfgGlasses",
+					"CfgMagazines",
+					"CfgAmmo"
+				];
 
-			_cfg = {
-				if ( isClass ( configFile >> _x >> _className ) ) exitWith {
-					( configFile >> _x >> _className )
+				_index = _listbox lbAdd format[ "%1 - $%2", getText( _cfg >> "displayName" ), _price ];
+				_listbox lbSetPicture [ _index, getText( _cfg >> "picture" ) ];
+				_listbox lbSetData [ _index, str [ _className, _level ] ];
+				_listbox lbSetValue [ _index, _price ];
+
+				//Turn listbox entry red if player is not the correct level
+				if ( call NEB_fnc_getPlayerLevel < _level || call NEB_fnc_getPlayerCash < _price ) then {
+					_listbox lbSetColor [ _index, [ 1, 0, 0, 0.8 ] ];
+					_listbox lbSetSelectColor [ _index, [ 1, 0, 0, 0.8 ] ];
 				};
-			}forEach [
-				//This list should be enough to cover most class types
-				"CfgVehicles",
-				"CfgWeapons",
-				"CfgGlasses",
-				"CfgMagazines",
-				"CfgAmmo"
-			];
-
-			_index = _listbox lbAdd format[ "%1 - $%2", getText( _cfg >> "displayName" ), _price ];
-			_listbox lbSetPicture [ _index, getText( _cfg >> "picture" ) ];
-			_listbox lbSetData [ _index, str [ _className, _level ] ];
-			_listbox lbSetValue [ _index, _price ];
-
-			//Turn listbox entry red if player is not the correct level
-			if ( call NEB_fnc_getPlayerLevel < _level || call NEB_fnc_getPlayerCash < _price ) then {
-				_listbox lbSetColor [ _index, [ 1, 0, 0, 0.8 ] ];
-				_listbox lbSetSelectColor [ _index, [ 1, 0, 0, 0.8 ] ];
-			};
-
-		}forEach _data;
+			
+			}forEach _data;
+		};
 
 	};
 
@@ -173,7 +179,8 @@ switch ( toUpper _fnc ) do {
 
 		_buyButton = UICTRL( BTN_BUY_IDC );
 
-		if ( call NEB_fnc_getPlayerLevel < _level || call NEB_fnc_getPlayerCash < _cost ) then {
+		if ( getNumber( missionConfigFile >> format[ "NEB_%1Data", NEB_currentShop ] >> "NEB_skipBuyCondition" ) isEqualTo 0 && 
+			{ ( call NEB_fnc_getPlayerLevel < _level || call NEB_fnc_getPlayerCash < _cost ) }  ) then {
 			//Change button Text
 			_buyButton ctrlSetText ( [ "Not Enough Money", format[ "Need to be level %1", _level ] ] select ( call NEB_fnc_getPlayerLevel < _level ));
 			//Disable BUY button
