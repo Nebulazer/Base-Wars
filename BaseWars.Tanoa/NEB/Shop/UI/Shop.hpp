@@ -7,6 +7,7 @@ class NEB_Shop
 	idd = NEB_SHOP_IDD;
 	movingEnable = false;
 	enableSimulation = true;
+	onUnload = "[ 'SAVE' ] call NEB_fnc_shopCrate";
 
 	class controlsBackground
 	{

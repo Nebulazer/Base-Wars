@@ -23,6 +23,9 @@ switch ( _do ) do {
 		//Store reference to crate on player
 		player setVariable [ "NEB_shopCrate", _crate ];
 		
+		//Load saved crate contents
+		[ "LOAD" ] call NEB_fnc_shopCrate;
+		
 		//Enable DIS of items added by remote/local player once they close the container
 		[ "DIS", [ "REMOTE", netId _crate ] ] remoteExec [ "NEB_fnc_shopCrate", 0, format[ "shopCrate_%1", getPlayerUID player ] ];
 		
@@ -120,7 +123,7 @@ switch ( _do ) do {
 		_crate = [ "GET" ] call NEB_fnc_shopCrate;
 
 		[ _crate, true ] remoteExec [ "hideObjectGlobal", 2 ];
-
+		
 	};
 	
 	//********
@@ -203,6 +206,8 @@ switch ( _do ) do {
 			case "ALL" : {
 				[ "DIS", "WEAPON" ] call NEB_fnc_shopCrate;
 				[ "DIS", "CONTAINER" ] call NEB_fnc_shopCrate;
+				
+				[ "SAVE" ] call NEB_fnc_shopCrate;
 			};
 			
 			//Handle Disassembly for remote units that place item in player crate
@@ -215,9 +220,6 @@ switch ( _do ) do {
 												
 					[ "DIS", "ALL" ] remoteExec [ "NEB_fnc_shopCrate", _container ];
 					
-					if ( local _container ) then {
-						[ "SAVE" ] call NEB_fnc_shopCrate;
-					};
 				}];
 			};
 		};
@@ -281,11 +283,9 @@ switch ( _do ) do {
 	/*case "DISCONNECT" : {
 		params[ "_unit", "_id", "_uid", "_name" ];
 		
-		[ "SAVE" ] call NEB_fnc_shopCrate;
-		remoteExec [ "", format[ "shopCrate_%1", _uid ] ];
-		_crate = player getVariable [ "NEB_shopCrate", objNull ];
-		deleteVehicle _crate;
+		//Needs testing as a final backup save( most likely to late to remote at this point ) 
+		//[ "SAVE" ] remoteExec [ "NEB_fnc_shopCrate", _unit ];
+		
 	};*/
-
 
 };
