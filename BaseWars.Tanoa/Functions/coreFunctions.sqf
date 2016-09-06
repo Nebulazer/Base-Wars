@@ -187,6 +187,8 @@ if (_cash >= _cost) then {
 _balance = _cash - _cost;
 _unit setVariable["cash", _balance, true];
 _paid = true;
+_loadout = getUnitLoadout _unit;
+profileNamespace setVariable ["NEB_PRO_39573_LOADOUT",_loadout];
 [] call fnc_updateStats;
 [] call neb_fnc_core_crateSave;
 };
