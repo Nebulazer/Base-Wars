@@ -738,7 +738,8 @@ NEB_fnc_getPlayerCash = {
 
 
 
-
+//This will not work like this as this is a server command only
+//So will not update all players, only the host if hosted server
 onPlayerDisconnected {
 	_loadout = getUnitLoadout player;
 	profileNamespace setVariable ["NEB_PRO_39573_LOADOUT",_loadout];
