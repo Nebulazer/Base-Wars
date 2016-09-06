@@ -125,5 +125,4 @@ _slotClasses = [ "MuzzleSlot", "PointerSlot", "CowsSlot", "UnderBarrelSlot" ]; /
 	};
 }forEach _newAttachments;
 
-
-
+[ "UPDATE" ] call NEB_fnc_shopCrate;

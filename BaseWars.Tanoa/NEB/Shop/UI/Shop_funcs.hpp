@@ -32,4 +32,11 @@ class NEB_Shop
 	{
 		#include "functions\shops\gear\gearFuncs.hpp"
 	};
+	
+	
+	//Leave at bottom
+	class ShopSell
+	{
+		#include "functions\shops\sell\SellFuncs.hpp"
+	};
 };
