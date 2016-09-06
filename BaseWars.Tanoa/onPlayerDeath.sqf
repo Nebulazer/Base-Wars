@@ -1,5 +1,5 @@
 //[player] call neb_fnc_core_copyGear;
-
+profileNamespace setVariable ["NEB_PRO_39573_LOADOUT",[]];
 
 	//Crate Saving
 	_crate = player getVariable [ "NEB_shopCrate", objNull ];
