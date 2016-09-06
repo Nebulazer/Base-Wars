@@ -91,21 +91,6 @@ neb_fnc_core_teleToTruck = {
 	] call BIS_fnc_holdActionAdd;
 };
 
-//Crate Saving
-neb_fnc_core_crateSave = {
-		
-	_crate = player getVariable [ "NEB_shopCrate", objNull ];
-	if !( isNull _crate ) then {
-		profileNamespace setVariable[ "NEB_telecache",
-			[
-				magazineCargo _crate call BIS_fnc_consolidateArray,
-				itemCargo _crate call BIS_fnc_consolidateArray,
-				weaponCargo _crate call BIS_fnc_consolidateArray
-			]
-		];
-	};
-    saveProfileNamespace;
-};
 
 //End Mission
 neb_fnc_core_ticketCounter = {
@@ -167,12 +152,10 @@ _amountleftEnd = endScore - _almostEnd;
 	
 	if (bluScore >= endScore) then {
 		//Crate Saving
-	[] call neb_fnc_core_crateSave;
 	endMission "END1";
 		};
 	if (redScore >= endScore) then {
 		//Crate Saving
-	[] call neb_fnc_core_crateSave;
 	endMission "END1";
 		};
 
@@ -190,7 +173,6 @@ _paid = true;
 _loadout = getUnitLoadout _unit;
 profileNamespace setVariable ["NEB_PRO_39573_LOADOUT",_loadout];
 [] call fnc_updateStats;
-[] call neb_fnc_core_crateSave;
 };
 _paid
 };
