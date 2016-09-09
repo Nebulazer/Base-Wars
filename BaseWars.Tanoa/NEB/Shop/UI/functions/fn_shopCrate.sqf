@@ -12,9 +12,10 @@ switch ( _do ) do {
 
 		//Create crate
 		_crate = createVehicle [ "Box_NATO_Ammo_F", [0,0,0], [], 0, "CAN_COLLIDE" ];
-		clearItemCargoGlobal _crate;
 		clearMagazineCargoGlobal _crate;
+		clearItemCargoGlobal _crate;		
 		clearWeaponCargoGlobal _crate;
+		clearBackpackCargoGlobal _crate;
 		_crate allowDamage false;
 		
 		//Set telecache texture
@@ -22,6 +23,9 @@ switch ( _do ) do {
 
 		//Store reference to crate on player
 		player setVariable [ "NEB_shopCrate", _crate ];
+		
+		//Load saved crate contents
+		[ "LOAD" ] call NEB_fnc_shopCrate;
 		
 		//Enable DIS of items added by remote/local player once they close the container
 		[ "DIS", [ "REMOTE", netId _crate ] ] remoteExec [ "NEB_fnc_shopCrate", 0, format[ "shopCrate_%1", getPlayerUID player ] ];
@@ -89,14 +93,15 @@ switch ( _do ) do {
 		private[ "_crate" ];
 		
 		_crate = [ "GET" ] call NEB_fnc_shopCrate;
-						
-		_crate setVehiclePosition [ player getPos [ 2, getDir player ], [], 0, "CAN_COLLIDE" ];
+		
+		if ( _crate distanceSqr player > 2^2 || { [ getPos player, getDir player, 30, getPos _crate ] call BIS_fnc_inAngleSector } ) then {
+			_crate setVehiclePosition [ player getPos [ 2, getDir player ], [], 0, "CAN_COLLIDE" ];
+			_crate setDir ( getDir player + 90 );
+		};
 		
 		if ( isObjectHidden _crate ) then {
 				[ _crate, false ] remoteExec [ "hideObjectGlobal", 2 ];
 		};
-
-		_crate setDir ( getDir player + 90 );
 
 		_crate
 	};
@@ -120,7 +125,7 @@ switch ( _do ) do {
 		_crate = [ "GET" ] call NEB_fnc_shopCrate;
 
 		[ _crate, true ] remoteExec [ "hideObjectGlobal", 2 ];
-
+		
 	};
 	
 	//********
@@ -161,7 +166,6 @@ switch ( _do ) do {
 					{
 						if ( !isNil "_x" && { count _x > 0 } ) then {
 							_x params [ "_mag", "_ammo" ];
-							systemChat format[ "adding mag - %1", [ _mag, 1, _ammo ] ];
 							_crate addMagazineAmmoCargo [ _mag, 1, _ammo ];
 						};
 					}forEach [ _priMuzzleMag, _secMuzzleMag ];
@@ -203,6 +207,8 @@ switch ( _do ) do {
 			case "ALL" : {
 				[ "DIS", "WEAPON" ] call NEB_fnc_shopCrate;
 				[ "DIS", "CONTAINER" ] call NEB_fnc_shopCrate;
+				
+				[ "SAVE" ] call NEB_fnc_shopCrate;
 			};
 			
 			//Handle Disassembly for remote units that place item in player crate
@@ -215,9 +221,6 @@ switch ( _do ) do {
 												
 					[ "DIS", "ALL" ] remoteExec [ "NEB_fnc_shopCrate", _container ];
 					
-					if ( local _container ) then {
-						[ "SAVE" ] call NEB_fnc_shopCrate;
-					};
 				}];
 			};
 		};
@@ -227,9 +230,14 @@ switch ( _do ) do {
 	// Handles loading of player crate at mission start and loading it with saved inventory
 	//********
 	case "LOAD" : {
-		_contents = profileNamespace getVariable [ "NEB_telecache", [] ];
+		_contents = [ "CARGO", "ALL" ] call NEB_fnc_shopCrate;
 		
 		_crate = [ "GET" ] call NEB_fnc_shopCrate;
+		
+		clearMagazineCargo _crate;
+		clearItemCargo _crate;		
+		clearWeaponCargo _crate;
+		clearBackpackCargo _crate;
 		
 		{
 		    switch ( _forEachIndex ) do {
@@ -259,9 +267,9 @@ switch ( _do ) do {
 	};
 	
 	//********
-	//Handles saving of player crate inventory
+	//Handles updating of player crate inventory
 	//********
-	case "SAVE" : {
+	case "UPDATE" : {
 		_crate = player getVariable [ "NEB_shopCrate", objNull ];
 		
 		if !( isNull _crate ) then {
@@ -277,15 +285,49 @@ switch ( _do ) do {
 		};
 	};
 	
+	//********
+	//Handles saving of player crate inventory
+	//********
+	case "SAVE" : {
+		[ "UPDATE" ] call NEB_fnc_shopCrate;
+		saveProfileNamespace;
+	};
+	
+	//********
+	//Returns crate inventory
+	//********
+	case "CARGO" : {
+		params[ [ "_type", "ALL" ] ];
+		
+		_contents = profileNamespace getVariable [ "NEB_telecache", [] ];
+		
+		switch ( toUpper _type ) do {
+			case "ALL" : {
+				_contents
+			};
+			case "MAGAZINES" : {
+				_contents select 0
+			};
+			case "WEAPONS" : {
+				_contents select 1
+			};
+			case "ITEMS" : {
+				_contents select 2
+			};
+			case "BACKPACKS" : {
+				_contents select 3
+			};
+		};
+		
+	};
+	
 	//Called by server on missionEH HandleDisconnect
 	/*case "DISCONNECT" : {
 		params[ "_unit", "_id", "_uid", "_name" ];
 		
-		[ "SAVE" ] call NEB_fnc_shopCrate;
-		remoteExec [ "", format[ "shopCrate_%1", _uid ] ];
-		_crate = player getVariable [ "NEB_shopCrate", objNull ];
-		deleteVehicle _crate;
+		//Needs testing as a final backup save( most likely to late to remote at this point ) 
+		//[ "SAVE" ] remoteExec [ "NEB_fnc_shopCrate", _unit ];
+		
 	};*/
-
 
 };

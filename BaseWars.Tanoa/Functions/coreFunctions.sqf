@@ -91,21 +91,6 @@ neb_fnc_core_teleToTruck = {
 	] call BIS_fnc_holdActionAdd;
 };
 
-//Crate Saving
-neb_fnc_core_crateSave = {
-		
-	_crate = player getVariable [ "NEB_shopCrate", objNull ];
-	if !( isNull _crate ) then {
-		profileNamespace setVariable[ "NEB_telecache",
-			[
-				magazineCargo _crate call BIS_fnc_consolidateArray,
-				itemCargo _crate call BIS_fnc_consolidateArray,
-				weaponCargo _crate call BIS_fnc_consolidateArray
-			]
-		];
-	};
-    saveProfileNamespace;
-};
 
 //End Mission
 neb_fnc_core_ticketCounter = {
@@ -167,12 +152,10 @@ _amountleftEnd = endScore - _almostEnd;
 	
 	if (bluScore >= endScore) then {
 		//Crate Saving
-	[] call neb_fnc_core_crateSave;
 	endMission "END1";
 		};
 	if (redScore >= endScore) then {
 		//Crate Saving
-	[] call neb_fnc_core_crateSave;
 	endMission "END1";
 		};
 
@@ -190,7 +173,6 @@ _paid = true;
 _loadout = getUnitLoadout _unit;
 profileNamespace setVariable ["NEB_PRO_39573_LOADOUT",_loadout];
 [] call fnc_updateStats;
-[] call neb_fnc_core_crateSave;
 };
 _paid
 };
@@ -1145,7 +1127,8 @@ neb_fnc_core_bluSpawnTruck = {
 					_trigger attachTo [ BluSpawnTruck, [0,0,0] ];
 
 					//Call shopInit on server and all clients and JIP
-					_JIP = [ _trigger, "Blu Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", [ 0, 2 ], true ];
+					_JIP = [ _trigger, "Blu Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", 0, true ];
+					_JIP = [ _trigger, "Blu Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", 2 ];
 					
 					
 					waitUntil {!alive BluSpawnTruck};
@@ -1283,7 +1266,8 @@ neb_fnc_core_redSpawnTruck = {
 					_trigger attachTo [ RedSpawnTruck, [0,0,0] ];
 
 					//Call shopInit on server and all clients and JIP
-					_JIP = [ _trigger, "Red Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", [ 0, 2 ], true ];
+					[ _trigger, "Red Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", 0, true ];
+					[ _trigger, "Red Mobile FOB", "ALL", true, true ] remoteExec [ "NEB_fnc_shopInit", 2 ];
 					waitUntil {!alive RedSpawnTruck};
 					sleep .5;
 					RedSpawnTruck = nil;

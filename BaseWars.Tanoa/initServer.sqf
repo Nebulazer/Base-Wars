@@ -86,3 +86,10 @@ fnc_setEventKilled = {
 };
 
 
+addMissionEventHandler [ "HandleDisconnect", {
+	params[ "_unit", "_id", "_uid", "_name" ];
+	
+	//Remove JIP for crate closing
+	remoteExec [ "", format[ "shopCrate_%1", _uid ] ];
+	
+}];
